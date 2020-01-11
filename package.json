@@ -1,10 +1,14 @@
 {
-  "name": "react-blockies",
-  "version": "1.4.1",
+  "name": "@pacta-app/react-blockies",
+  "version": "1.0.0",
   "description": "Ethereum Style Identicons for React",
   "main": "dist/main.js",
-  "repository": "git@github.com:stephensprinkle/react-blockies.git",
-  "author": "Stephen Sprinkle",
+  "repository": "git@github.com:pacta-app/react-blockies.git",
+  "author": "Pacta <info@pacta.app>",
+  "bugs": {
+    "url": "https://github.com/pacta-app/react-blockies/issues"
+  },
+  "homepage": "https://github.com/pacta-app/react-blockies#readme",
   "license": "MIT",
   "scripts": {
     "build": "npx babel src/main.jsx > dist/main.js"

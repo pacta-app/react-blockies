@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class Identicon extends Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export default class Identicon extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (!this.isEquivalent(this.props, nextProps)) this.generateIdenticon({ ...nextProps });
+    if (!this.isEquivalent(this.props, nextProps))
+      this.generateIdenticon({ ...nextProps });
   }
 
   isEquivalent(prevProps, nextProps) {
@@ -28,7 +29,7 @@ export default class Identicon extends Component {
       var propName = aProps[i];
 
       if (prevProps[propName] !== nextProps[propName]) {
-          return false;
+        return false;
       }
     }
 
@@ -47,7 +48,8 @@ export default class Identicon extends Component {
         randseed[i] = 0;
       }
       for (let i = 0; i < seed.length; i++) {
-        randseed[i%4] = ((randseed[i%4] << 5) - randseed[i%4]) + seed.charCodeAt(i);
+        randseed[i % 4] =
+          (randseed[i % 4] << 5) - randseed[i % 4] + seed.charCodeAt(i);
       }
     }
 
@@ -58,20 +60,20 @@ export default class Identicon extends Component {
       randseed[0] = randseed[1];
       randseed[1] = randseed[2];
       randseed[2] = randseed[3];
-      randseed[3] = (randseed[3] ^ (randseed[3] >> 19) ^ t ^ (t >> 8));
+      randseed[3] = randseed[3] ^ (randseed[3] >> 19) ^ t ^ (t >> 8);
 
-      return (randseed[3]>>>0) / ((1 << 31)>>>0);
+      return (randseed[3] >>> 0) / ((1 << 31) >>> 0);
     }
 
     function createColor() {
       // saturation is the whole color spectrum
       const h = Math.floor(rand() * 360);
       // saturation goes from 40 to 100, it avoids greyish colors
-      const s = ((rand() * 60) + 40) + '%';
+      const s = rand() * 60 + 40 + "%";
       // lightness can be anything from 0 to 100, but probabilities are a bell curve around 50%
-      const l = ((rand()+rand()+rand()+rand()) * 25) + '%';
+      const l = (rand() + rand() + rand() + rand()) * 25 + "%";
 
-      const color = 'hsl(' + h + ',' + s + ',' + l + ')';
+      const color = "hsl(" + h + "," + s + "," + l + ")";
       return color;
     }
 
@@ -88,7 +90,7 @@ export default class Identicon extends Component {
         for (let x = 0; x < dataWidth; x++) {
           // this makes foreground and background color to have a 43% (1/2.3) probability
           // spot color has 13% chance
-          row[x] = Math.floor(rand()*2.3);
+          row[x] = Math.floor(rand() * 2.3);
         }
         const r = row.slice(0, mirrorWidth);
         r.reverse();
@@ -107,19 +109,16 @@ export default class Identicon extends Component {
       const size = width * scale;
 
       identicon.width = size;
-      identicon.style.width = `${size}px`;
-
       identicon.height = size;
-      identicon.style.height = `${size}px`;
 
-      const cc = identicon.getContext('2d');
+      const cc = identicon.getContext("2d");
       cc.fillStyle = bgcolor;
       cc.fillRect(0, 0, identicon.width, identicon.height);
       cc.fillStyle = color;
 
       for (let i = 0; i < imageData.length; i++) {
         // if data is 2, choose spot color, if 1 choose foreground
-        cc.fillStyle = (imageData[i] === 1) ? color : spotcolor;
+        cc.fillStyle = imageData[i] === 1 ? color : spotcolor;
 
         // if data is 0, leave the background
         if (imageData[i]) {
@@ -134,7 +133,8 @@ export default class Identicon extends Component {
     const opts = options || {};
     const size = opts.size || 8;
     const scale = opts.scale || 4;
-    const seed = opts.seed || Math.floor((Math.random()*Math.pow(10,16))).toString(16);
+    const seed =
+      opts.seed || Math.floor(Math.random() * Math.pow(10, 16)).toString(16);
 
     seedrand(seed);
 
@@ -142,7 +142,14 @@ export default class Identicon extends Component {
     const bgcolor = opts.bgColor || createColor();
     const spotcolor = opts.spotColor || createColor();
     const imageData = createImageData(size);
-    const canvas = setCanvas(this.identicon, imageData, color, scale, bgcolor, spotcolor);
+    const canvas = setCanvas(
+      this.identicon,
+      imageData,
+      color,
+      scale,
+      bgcolor,
+      spotcolor
+    );
 
     return canvas;
   }
@@ -150,17 +157,18 @@ export default class Identicon extends Component {
   render() {
     return (
       <canvas
-        ref={(identicon) => { this.identicon = identicon; }}
+        ref={identicon => {
+          this.identicon = identicon;
+        }}
         className={this.props.className}
       />
     );
   }
 }
 
-
 Identicon.defaultProps = {
-  className: 'identicon',
-}
+  className: "identicon"
+};
 
 Identicon.propTypes = {
   seed: PropTypes.string.isRequired,
@@ -169,4 +177,4 @@ Identicon.propTypes = {
   color: PropTypes.string,
   bgColor: PropTypes.string,
   spotColor: PropTypes.string
-}
+};

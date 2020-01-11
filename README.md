@@ -1,6 +1,6 @@
 # React Blockies
 
-This is a simple port of https://github.com/alexvandesande/blockies to a react component.  
+This is a fork of [cssivision/qrcode-react](https://github.com/cssivision/qrcode-react), which a simple port of [alexvandesande/blockies](https://github.com/alexvandesande/blockies) to a react component. The original has been forked with the only intention to remove hard coded style and attributes. The stiling should be done with selectors in css files and must not be implemented hard coded.
 
 # Example:
 
